@@ -1,11 +1,10 @@
 <template>
     <div id="app">
-        <ParamView></ParamView>
+        <router-view></router-view>
     </div>
 </template>
 
 <script setup>
-import ParamView from "@/views/ParamView.vue";
 </script>
 
 <style>
