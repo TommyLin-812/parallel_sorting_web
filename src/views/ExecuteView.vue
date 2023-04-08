@@ -1,25 +1,17 @@
 <template>
     <div>
-        <el-row>
-            <el-col>
-                <div>待排序数据规模：{{ param.dataQty }}</div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col>
-                <div>线程数量：{{ param.threadNum }}</div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col>
-                <div>执行次数：{{ param.executeTimes }}</div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col>
-                <el-button type="primary" :loading="executing" @click="execute">执行排序</el-button>
-            </el-col>
-        </el-row>
+        <div style="margin: 5px 0">待排序数据规模：{{ param.dataQty }}</div>
+        <div style="margin: 5px 0">线程数量：{{ param.threadNum }}</div>
+        <div style="margin: 5px 0">执行次数：{{ param.executeTimes }}</div>
+        <el-button type="primary" :loading="executing" @click="execute" style="margin: 5px 0">执行排序</el-button>
+        <el-timeline>
+            <el-timeline-item
+                v-for="(activity, index) in activities"
+                :key="index"
+                :timestamp="activity.timestamp">
+                {{activity.content}}
+            </el-timeline-item>
+        </el-timeline>
     </div>
 </template>
 
@@ -35,7 +27,8 @@ export default {
                 dataQty: '',
                 threadNum: '',
                 executeTimes: ''
-            }
+            },
+            activities: []
         }
     },
     mounted() {
@@ -45,11 +38,11 @@ export default {
         });
     },
     methods: {
-        execute(){
-            this.executing=true;
+        execute() {
+            this.executing = true;
             axios.get("http://localhost:8081/execute").then((result) => {
                 console.log(result.data);
-                this.executing=false;
+                this.executing = false;
                 this.$message({
                     message: '执行排序已完成',
                     type: 'success'

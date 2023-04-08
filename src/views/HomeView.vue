@@ -1,22 +1,31 @@
 <template>
     <div>
-        <el-container style="height: 500px; border: 1px solid #eee">
-            <el-header style="text-align: center; font-size: 40px; background-color: #B3C0D1;">并行排序模拟系统</el-header>
+        <el-container style="height: 800px; border: 1px solid #eee">
+            <el-header style="text-align: center; font-size: 40px; background-color: #B3C0D1;">并行排序模拟系统
+            </el-header>
             <el-container>
                 <el-aside width="200px">
                     <el-menu>
-                        <el-menu-item>
-                            <router-link to="/param">参数设置</router-link>
-                        </el-menu-item>
-                        <el-menu-item>
-                            <router-link to="/execute">运行过程</router-link>
-                        </el-menu-item>
-                        <el-menu-item>
-                            <router-link to="/result">排序结果</router-link>
-                        </el-menu-item>
-                        <el-menu-item>
-                            <router-link to="/testdata">数据可视化</router-link>
-                        </el-menu-item>
+                        <router-link to="/param">
+                            <el-menu-item>
+                                <el-link :underline="false">参数设置</el-link>
+                            </el-menu-item>
+                        </router-link>
+                        <router-link to="/execute">
+                            <el-menu-item>
+                                <el-link :underline="false">运行过程</el-link>
+                            </el-menu-item>
+                        </router-link>
+                        <router-link to="/result">
+                            <el-menu-item>
+                                <el-link :underline="false">排序结果</el-link>
+                            </el-menu-item>
+                        </router-link>
+                        <router-link to="/testdata">
+                            <el-menu-item>
+                                <el-link :underline="false">数据可视化</el-link>
+                            </el-menu-item>
+                        </router-link>
                     </el-menu>
                 </el-aside>
                 <el-main>
@@ -34,5 +43,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

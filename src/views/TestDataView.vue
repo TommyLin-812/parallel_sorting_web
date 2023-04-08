@@ -2,23 +2,26 @@
     <div>
         <el-container>
             <el-header>
-                <el-select v-model="dataQty" :loading="selectLoading" style="margin: 0 10px">
-                    <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                    </el-option>
-                </el-select>
-                <el-button type="primary" style="margin: 0 10px" @click="dataVisualize" :loading="loading">
-                    查看数据图表
-                </el-button>
+                <el-form :inline="true">
+                    <el-form-item label="数据规模">
+                        <el-select v-model="dataQty" :loading="selectLoading">
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="dataVisualize" :loading="loading">查看数据图表</el-button>
+                    </el-form-item>
+                </el-form>
             </el-header>
             <el-main>
-                <div id="main" style="width: 600px;height:400px;"></div>
+                <div id="main" style="width: 800px;height:500px;"></div>
             </el-main>
         </el-container>
-
     </div>
 </template>
 
@@ -34,7 +37,8 @@ export default {
             loading: false,
             dataQty: '',
             options: [],
-            dataset: []
+            dataset: [],
+            chart: ''
         }
     },
     mounted() {
@@ -45,38 +49,37 @@ export default {
                 this.options.push({value: result.data.data[i], label: result.data.data[i]});
             }
             this.selectLoading = false;
+
+            this.chart = echarts.init(document.getElementById('main'));
         });
     },
     methods: {
         dataVisualize() {
             this.loading = true;
+            this.dataset = [];
             axios.get("http://localhost:8081/testdata/" + this.dataQty).then((result) => {
                 console.log(result.data);
                 let i;
                 for (i = 0; i < result.data.data.length; i++) {
                     this.dataset.push({
-                        threadNum: result.data.data[i].threadNum,
-                        costTime: result.data.data[i].costTime
+                        '线程数量': result.data.data[i].threadNum,
+                        '执行时间': result.data.data[i].costTime
                     })
                 }
-                const Chart = echarts.init(document.getElementById('main'));
 
-                var option = {
+
+                const option = {
                     legend: {},
                     tooltip: {},
                     dataset: {
-                        // 提供一份数据。
                         source: this.dataset
                     },
-                    // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
-                    xAxis: {type: 'category'},
-                    // 声明一个 Y 轴，数值轴。
-                    yAxis: {},
-                    // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+                    xAxis: {type: 'category', name: '线程数量'},
+                    yAxis: {type: 'value', name: '执行时间'},
                     series: [{type: 'line'}]
                 };
 
-                Chart.setOption(option);
+                this.chart.setOption(option);
                 this.loading = false;
                 this.$message({
                     message: '已获取实验数据',
@@ -89,5 +92,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
