@@ -1,8 +1,8 @@
 <template>
     <div>
-        <el-input type="file" style="margin: 10px 0"></el-input>
-        <el-button type="primary" :loading="loading" @click="getSortedData" style="margin: 10px 0">查看排序结果</el-button>
-        <el-input type="textarea" autosize style="margin: 10px 0"></el-input>
+        <el-button type="primary" id="button" @click="getSortedData" style="margin: 10px 0">查看排序结果
+        </el-button>
+        <el-input type="textarea" id="sortedData" v-model="sortedData" :rows=30></el-input>
     </div>
 </template>
 
@@ -13,15 +13,25 @@ export default {
     name: "ResultView",
     data() {
         return {
-            loading: false
+            sortedData: ''
         }
     },
     methods: {
         getSortedData() {
-            this.loading=true;
-            axios.get("http://localhost:8081/result").then((result)=>{
-                console.log(result.data);
+            const button = document.getElementById("button");
+            button.loading = true;
+            axios.get("http://localhost:8081/result", {responseType: 'blob'}).then((result) => {
+                const blob = new Blob([result.data]);
 
+                console.log(blob);
+
+                const reader = new FileReader()
+                reader.onload = function readFileCompleted() {
+                    document.getElementById("sortedData").value = reader.result;
+                    reader.abort();
+                    button.loading = false;
+                };
+                reader.readAsText(blob);
             })
         }
     }
