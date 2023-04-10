@@ -4,7 +4,7 @@
         <el-form :model="paramForm" ref="paramForm" label-position="top">
             <!--数据规模-->
             <el-form-item label="待排序数据规模">
-                <el-slider v-model="paramForm.dataQty" :min=1000000 :max=100000000 :step=1000000
+                <el-slider v-model="paramForm.dataQty" :min=100 :max=10000000 :step=100
                            :marks="marks" show-input :show-input-controls=false></el-slider>
             </el-form-item>
             <!--线程数量（1~10）-->
@@ -38,10 +38,9 @@ export default {
                 executeTimes: 1
             },
             marks: {
+                100: '1百个',
                 1000000: '1百万个',
-                10000000: '1千万个',
-                50000000: '5千万个',
-                100000000: '1亿个'
+                10000000: '1千万个'
             }
         }
     },

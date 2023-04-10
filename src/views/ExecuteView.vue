@@ -42,6 +42,9 @@ export default {
             this.executing = true;
             axios.get("http://localhost:8081/execute").then((result) => {
                 console.log(result.data);
+
+                this.activities=result.data.data;
+
                 this.executing = false;
                 this.$message({
                     message: '执行排序已完成',
