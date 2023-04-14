@@ -7,14 +7,17 @@
                 <el-slider v-model="paramForm.dataQty" :min=100 :max=10000000 :step=100
                            :marks="marks" show-input :show-input-controls=false></el-slider>
             </el-form-item>
+
             <!--线程数量（1~10）-->
             <el-form-item label="线程数量" prop="threadNum">
                 <el-input-number v-model="paramForm.threadNum" :min=1 :max=10></el-input-number>
             </el-form-item>
+
             <!--运行次数-->
             <el-form-item label="运行次数" prop="executeTimes">
                 <el-input-number v-model="paramForm.executeTimes" :min=1 :max=10></el-input-number>
             </el-form-item>
+
             <!--保存设置按钮-->
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="submitting">保存设置</el-button>

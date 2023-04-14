@@ -1,15 +1,19 @@
 <template>
     <div>
         <div style="margin: 5px 0">待排序数据规模：{{ param.dataQty }}</div>
+
         <div style="margin: 5px 0">线程数量：{{ param.threadNum }}</div>
+
         <div style="margin: 5px 0">执行次数：{{ param.executeTimes }}</div>
+
         <el-button type="primary" :loading="executing" @click="execute" style="margin: 5px 0">执行排序</el-button>
+
         <el-timeline>
             <el-timeline-item
-                v-for="(activity, index) in activities"
-                :key="index"
-                :timestamp="activity.timestamp">
-                {{activity.content}}
+                    v-for="(activity, index) in activities"
+                    :key="index"
+                    :timestamp="activity.timestamp">
+                {{ activity.content }}
             </el-timeline-item>
         </el-timeline>
     </div>
@@ -43,7 +47,7 @@ export default {
             axios.get("http://localhost:8081/execute").then((result) => {
                 console.log(result.data);
 
-                this.activities=result.data.data;
+                this.activities = result.data.data;
 
                 this.executing = false;
                 this.$message({
@@ -57,7 +61,4 @@ export default {
 </script>
 
 <style scoped>
-.el-row {
-    margin: 10px 0;
-}
 </style>

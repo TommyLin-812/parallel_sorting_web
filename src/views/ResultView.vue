@@ -2,6 +2,7 @@
     <div>
         <el-button type="primary" id="button" @click="getSortedData" style="margin: 10px 0">查看排序结果
         </el-button>
+
         <el-input type="textarea" id="sortedData" v-model="sortedData" :rows=30></el-input>
     </div>
 </template>

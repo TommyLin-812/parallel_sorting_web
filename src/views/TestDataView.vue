@@ -13,11 +13,14 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" @click="dataVisualize" :loading="loading">查看数据图表</el-button>
                     </el-form-item>
                 </el-form>
             </el-header>
+
+            <!--用于放置图表-->
             <el-main>
                 <div id="main" style="width: 800px;height:500px;"></div>
             </el-main>
@@ -66,7 +69,6 @@ export default {
                         '执行时间': result.data.data[i].costTime
                     })
                 }
-
 
                 const option = {
                     legend: {},
