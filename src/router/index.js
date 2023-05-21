@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
-import ParamView from "@/views/ParamView.vue";
 import ExecuteView from "@/views/ExecuteView.vue";
 import ResultView from "@/views/ResultView.vue";
 import TestDataView from "@/views/TestDataView.vue";
+import MissionView from "@/views/MissionView.vue";
 
 Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/param',
-        name: 'param',
-        component: ParamView
+        path: '/mission',
+        name: 'mission',
+        component: MissionView
     },
     {
         path: '/execute',
